@@ -10,7 +10,6 @@ $(document).ready(function() {
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
     });
-    // newSong.dateAdded = todaysDate();
 
     console.log(newSong);
     // send song object to the Server

@@ -18,6 +18,16 @@ monthNames[now.getMonth()] + " " +
 now.getDate() + ", " + now.getFullYear();
 }
 
+function validateSong(song) {
+  for (var i = 0; i < songs.length; i++) {
+    if(song.title === songs[i].title && song.artist === songs[i].artist) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+
 // puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -38,16 +48,13 @@ app.post('/songs', function(req, res) {
   console.log("REQ body: ", req.body);
   var newSong = req.body;
   newSong.dateAdded = todaysDate();
-  for (var i = 0; i < songs.length; i++) {
-    if(newSong.title === songs[i].title &&& newSong.artist === songs[i].artist) {
-      alert('That song already exists!');
-      res.sendStatus(401);
-    } else {
-      songs.push(newSong);
-      // created new resource
-      res.sendStatus(201);
-    }
-  }
+
+  if(validateSong(newSong) === false) {
+  res.sendStatus(201);
+  songs.push(newSong);
+} else {
+  res.sendStatus(400);
+}
 
 });
 
