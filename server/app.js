@@ -4,6 +4,20 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 
+
+function todaysDate() {
+var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
+				"Thursday","Friday","Saturday");
+var monthNames = new Array(
+"January","February","March","April","May","June","July",
+"August","September","October","November","December");
+
+var now = new Date();
+return dayNames[now.getDay()] + ", " +
+monthNames[now.getMonth()] + " " +
+now.getDate() + ", " + now.getFullYear();
+}
+
 // puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -23,10 +37,18 @@ app.post('/songs', function(req, res) {
   // req.body is supplied by bodyParser above
   console.log("REQ body: ", req.body);
   var newSong = req.body;
-  songs.push(newSong);
+  newSong.dateAdded = todaysDate();
+  for (var i = 0; i < songs.length; i++) {
+    if(newSong.title === songs[i].title &&& newSong.artist === songs[i].artist) {
+      alert('That song already exists!');
+      res.sendStatus(401);
+    } else {
+      songs.push(newSong);
+      // created new resource
+      res.sendStatus(201);
+    }
+  }
 
-  // created new resource
-  res.sendStatus(201);
 });
 
 app.get('/songs', function(req, res) {
