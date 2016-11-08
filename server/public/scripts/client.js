@@ -1,3 +1,5 @@
+// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 $(document).ready(function() {
   console.log("it's alive!");
 
@@ -8,6 +10,7 @@ $(document).ready(function() {
     $.each($('#postSongForm').serializeArray(), function(i, field) {
       newSong[field.name] = field.value;
     });
+    newSong.dateAdded = todaysDate();
 
     console.log(newSong);
 
@@ -26,6 +29,8 @@ $(document).ready(function() {
       }
     })
 
+
+    // $('#postSongForm').children().html('');
   })
 
   getSongs();
@@ -43,15 +48,41 @@ $(document).ready(function() {
   function songsToDom(songs) {
     $("#songContainer").empty();
 
+    // validateSong(songs[i]);
+
     for (var i = 0; i < songs.length; i++) {
       $("#songContainer").append('<div class="song"></div>');
       var $el = $("#songContainer").children().last();
       $el.append('<h3>' + songs[i].title + '</h3>');
       $el.append('<p>By: ' + songs[i].artist + '</p>');
+      $el.append('<p>Date Added: ' + songs[i].dateAdded + '</p>')
+      // songs[i].dateAdded = todaysDate();
     }
 
   }
 
+//function to set today's date
+function todaysDate() {
+  // Array of days
+var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
+				"Thursday","Friday","Saturday");
+// Array of month Names
+var monthNames = new Array(
+"January","February","March","April","May","June","July",
+"August","September","October","November","December");
+
+var now = new Date();
+return dayNames[now.getDay()] + ", " +
+monthNames[now.getMonth()] + " " +
+now.getDate() + ", " + now.getFullYear();
+}
+
+// //function to check songs
+// function validateSong(song) {
+//   if(song.title === song.title) {
+//     return alert("That song already exists!")
+//   }
+// }
 
 
 });

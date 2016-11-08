@@ -13,7 +13,8 @@ app.set('port', process.env.PORT || 3000);
 var songs = [
   {
     artist: "Bruce Springstein",
-    title: "Born in the U.S.A."
+    title: "Born in the U.S.A.",
+    dateAdded: 'Tuesday, November 8, 2016'
   }
 ];
 
