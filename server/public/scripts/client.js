@@ -24,6 +24,12 @@ $(document).ready(function() {
         } else {
           alert("Oh no! Your song didn't save correctly.");
         }
+      },
+      error: function(error) {
+        console.log(error);
+        if(error.status == 400) {
+          alert("That song already exists! Try again!");
+        }
       }
     })
 

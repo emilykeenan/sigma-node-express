@@ -50,12 +50,14 @@ app.post('/songs', function(req, res) {
   var isDuplicate = false;
   newSong.dateAdded = todaysDate();
 
+//validation
   for (var i = 0; i < songs.length; i++) {
-    if(newSong.title == songs[i].title) {
+    if(newSong.title == songs[i].title && newSong.artist == songs[i].artist) {
       isDuplicate = true;
     }
   }
 
+//preventing post if song is a duplicate
   if(isDuplicate == true) {
   res.sendStatus(400);
 } else {
