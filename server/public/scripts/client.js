@@ -1,7 +1,4 @@
-// var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
 $(document).ready(function() {
-  console.log("it's alive!");
 
   $("#postSongForm").on("submit", function(event) {
     event.preventDefault();
@@ -33,8 +30,6 @@ $(document).ready(function() {
     })
 
 
-    // $('#postSongForm').children().html('');
-
   })
 
   getSongs();
@@ -62,22 +57,5 @@ $(document).ready(function() {
     }
 
   }
-
-//function to set today's date
-// function todaysDate() {
-//   // Array of days
-// var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
-// 				"Thursday","Friday","Saturday");
-// // Array of month Names
-// var monthNames = new Array(
-// "January","February","March","April","May","June","July",
-// "August","September","October","November","December");
-//
-// var now = new Date();
-// return dayNames[now.getDay()] + ", " +
-// monthNames[now.getMonth()] + " " +
-// now.getDate() + ", " + now.getFullYear();
-// }
-
 
 });

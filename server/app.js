@@ -4,7 +4,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 
-
+//function to get today's date
 function todaysDate() {
 var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
 				"Thursday","Friday","Saturday");
@@ -17,16 +17,6 @@ return dayNames[now.getDay()] + ", " +
 monthNames[now.getMonth()] + " " +
 now.getDate() + ", " + now.getFullYear();
 }
-
-// function validateSong(song) {
-//   for (var i = 0; i < songs.length; i++) {
-//     if(song.title === songs[i].title) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }
-// }
 
 // puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
@@ -68,9 +58,7 @@ app.post('/songs', function(req, res) {
 });
 
 app.get('/songs', function(req, res) {
-  console.log('handling get request for songs');
   // response options
-  // res.sendStatus(200);
   res.send(songs);
 });
 
