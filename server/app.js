@@ -3,21 +3,8 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
-var validation = require('./modules/validation')
-
-//function to get today's date
-function todaysDate() {
-var dayNames = new Array("Sunday","Monday","Tuesday","Wednesday",
-				"Thursday","Friday","Saturday");
-var monthNames = new Array(
-"January","February","March","April","May","June","July",
-"August","September","October","November","December");
-
-var now = new Date();
-return dayNames[now.getDay()] + ", " +
-monthNames[now.getMonth()] + " " +
-now.getDate() + ", " + now.getFullYear();
-}
+var validation = require('./modules/validation');
+var todaysDate = require('./modules/todaysDate');
 
 // puts post request body data and store it on req.body
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,7 +25,7 @@ app.post('/songs', function(req, res) {
   // req.body is supplied by bodyParser above
   console.log("REQ body: ", req.body);
   var newSong = req.body;
-  newSong.dateAdded = todaysDate();
+  newSong.dateAdded = todaysDate.todaysDate();
 
 //validation for dupes
 var isDuplicate = validation.dupeCheck(songs, newSong);
