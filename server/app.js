@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
+var validation = require('./modules/validation')
 
 //function to get today's date
 function todaysDate() {
@@ -37,21 +38,12 @@ app.post('/songs', function(req, res) {
   // req.body is supplied by bodyParser above
   console.log("REQ body: ", req.body);
   var newSong = req.body;
-  var isDuplicate = false;
-	var isBlank = false;
   newSong.dateAdded = todaysDate();
 
-//validation for duplicates
-  for (var i = 0; i < songs.length; i++) {
-    if(newSong.title == songs[i].title && newSong.artist == songs[i].artist) {
-      isDuplicate = true;
-    }
-  }
-
+//validation for dupes
+var isDuplicate = validation.dupeCheck(songs, newSong);
 //validation for blanks
-	if(newSong.title == '' || newSong.artist == '') {
-		isBlank = true;
-	}
+var isBlank = validation.blankCheck(newSong);
 
 //preventing post if song is a duplicate or blank
   if(isDuplicate == true || isBlank == true) {
