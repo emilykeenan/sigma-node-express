@@ -24,7 +24,7 @@ $(document).ready(function() {
       },
       error: function(error) {
         if(error.status == 400) {
-          alert("That song already exists! Try again!");
+          alert("That song already exists or is blank! Try again!");
         }
       }
     })

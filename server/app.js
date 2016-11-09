@@ -38,17 +38,23 @@ app.post('/songs', function(req, res) {
   console.log("REQ body: ", req.body);
   var newSong = req.body;
   var isDuplicate = false;
+	var isBlank = false;
   newSong.dateAdded = todaysDate();
 
-//validation
+//validation for duplicates
   for (var i = 0; i < songs.length; i++) {
     if(newSong.title == songs[i].title && newSong.artist == songs[i].artist) {
       isDuplicate = true;
     }
   }
 
-//preventing post if song is a duplicate
-  if(isDuplicate == true) {
+//validation for blanks
+	if(newSong.title == '' || newSong.artist == '') {
+		isBlank = true;
+	}
+
+//preventing post if song is a duplicate or blank
+  if(isDuplicate == true || isBlank == true) {
   res.sendStatus(400);
 } else {
   res.sendStatus(201);
